@@ -128,7 +128,7 @@ void HuskyPlugin::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf )
   // simulation iteration.
   this->updateConnection = event::Events::ConnectWorldUpdateStart(
       boost::bind(&HuskyPlugin::UpdateChild, this));
-  gzdbg << "plugin model name: " << modelName << "\n";
+  gzdbg << "Plugin model name: " << modelName << "\n";
 
   if (!ros::isInitialized())
   {
@@ -167,9 +167,6 @@ void HuskyPlugin::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf )
 
   prev_update_time_ = 0;
   last_cmd_vel_time_ = 0;
-
-
-  //TODO: fix this
 
   joints_[BL] = model_->GetJoint(bl_joint_name_);
   joints_[BR] = model_->GetJoint(br_joint_name_);

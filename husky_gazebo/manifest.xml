@@ -4,7 +4,7 @@
      husky_gazebo
 
   </description>
-  <author>Ryan Gariepy</author>
+  <author>Ryan Gariepy/Clearpath Robotics</author>
   <license>BSD</license>
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/husky_gazebo</url>

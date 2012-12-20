@@ -1,0 +1,11 @@
+<stack>
+  <description brief="husky_simulator">Husky specific simulation components.</description>
+  <author>Maintained by Ryan Gariepy</author>
+  <license>BSD</license>  
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/husky_simulator</url>
+  <depend stack="common_msgs" /> <!-- nav_msgs, sensor_msgs, geometry_msgs -->
+  <depend stack="ros" />
+  <depend stack="simulator_gazebo" /> <!-- gazebo -->
+
+</stack>
