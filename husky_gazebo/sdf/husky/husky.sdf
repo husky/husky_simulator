@@ -1,0 +1,272 @@
+<sdf version="1.3">
+    <model name="husky">
+        <pose>0 0 0 0 0 0</pose>
+        <static>true</static>
+        <link name="base_link">
+            <!-- Main Chassis -->
+            <visual name='base'>
+                <pose>0 0 0 0 0 0</pose>
+                <geometry>
+                    <mesh><uri>/home/rgariepy/clearpath-projects/husky/clearpath_husky/husky_description/Media/models/base_link.stl</uri></mesh>
+                </geometry>
+                <material>
+                    <script>
+                        <name>Gazebo/FlatBlack</name>
+                    </script>
+                </material>
+            </visual>
+
+            <!-- Top Plate -->
+            <visual name='top_plate'>
+                <pose>0 0 0 0 0 0</pose>
+                <geometry>
+                    <mesh><uri>/home/rgariepy/clearpath-projects/husky/clearpath_husky/husky_description/Media/models/top_plate.stl</uri></mesh>
+                </geometry>
+                <material>
+                    <script>
+                        <name>Gazebo/Yellow</name>
+                    </script>
+                </material>
+            </visual>
+
+            <!-- Front Bumper -->
+            <visual name='front_bumper'>
+                <pose>0.47 0 0.091 0 0 0</pose>
+                <geometry>
+                    <mesh><uri>/home/rgariepy/clearpath-projects/husky/clearpath_husky/husky_description/Media/models/bumper.stl</uri></mesh>
+                </geometry>
+                <material>
+                    <script>
+                        <name>Gazebo/FlatBlack</name>
+                    </script>
+                </material>
+            </visual>
+
+            <!-- Rear Bumper -->
+            <visual name='rear_bumper'>
+                <pose>-0.47 0 0.091 0 0 3.141</pose>
+                <geometry>
+                    <mesh><uri>/home/rgariepy/clearpath-projects/husky/clearpath_husky/husky_description/Media/models/bumper.stl</uri></mesh>
+                </geometry>
+                <material>
+                    <script>
+                        <name>Gazebo/FlatBlack</name>
+                    </script>
+                </material>
+            </visual>
+
+            <!-- User Rail -->
+            <visual name='user_rail'>
+                <pose>0.272 0 0.245 0 0 0</pose>
+                <geometry>
+                    <mesh><uri>/home/rgariepy/clearpath-projects/husky/clearpath_husky/husky_description/Media/models/user_rail.stl</uri></mesh>
+                </geometry>
+                <material>
+                    <script>
+                        <name>Gazebo/FlatBlack</name>
+                    </script>
+                </material>
+            </visual>
+            
+            <!-- Physics -->
+            <collision name='collision'>
+                <pose>0 0 .1 0 0 0</pose>
+                <geometry>
+                    <box>
+                        <size>1.0074 0.5709 0.2675</size>
+                    </box>
+                </geometry>
+            </collision>
+
+            <inertial>
+              <mass>33.855</mass>
+              <pose>-0.0856132 -0.000839955 0.238145</pose>
+              <inertia>
+                <ixx>2.2343</ixx>
+                <ixy>-0.023642</ixy>
+                <ixz>0.275174</ixz>
+                <iyy>3.42518</iyy>
+                <iyz>0.00239624</iyz>
+                <izz>2.1241</izz>
+              </inertia>
+            </inertial>
+<!--
+        <body:empty name="back_left_wheel">
+            <massMatrix>true</massMatrix>
+            <mass>2.63657</mass>
+            <ixx>0.0246688</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.0246688</iyy>
+            <iyz>0</iyz>
+            <izz>0.0441058</izz>
+            <cx>0</cx>
+            <cy>0</cy>
+            <cz>0.00019</cz>
+            <xyz>-0.256 0.285475 0.1714</xyz>
+            <rpy>0 -0 0</rpy>
+            <geom:cylinder name="back_left_wheel_geom">
+                <xyz>0 0 0</xyz>
+                <rpy>-90 0 0</rpy>
+                <size>0.17775 0.1143</size>
+                <mu1>1</mu1>
+                <mu2>1</mu2>
+                <fdir1>1 0 0</fdir1>
+                <kp>100000</kp>
+                <kd>1</kd>
+                <genTexCoord>true</genTexCoord>
+                <visual>
+                    <xyz>0 0 0</xyz>
+                    <rpy>-90 0 0</rpy>
+                    <scale>1 1 1</scale>
+                    <mesh>/home/rgariepy/clearpath-projects/husky/clearpath_husky/husky_description/Media/models/wheel.stl</mesh>
+                    <material>Gazebo/Grey</material>
+                </visual>
+            </geom:cylinder>
+            <turnGravityOff>false</turnGravityOff>
+            <selfCollide>false</selfCollide>
+        </body:empty>
+        <joint:hinge name="joint_back_left_wheel">
+            <body1>back_left_wheel</body1>
+            <body2>base_footprint</body2>
+            <anchor>back_left_wheel</anchor>
+            <axis>0 1 0</axis>
+        </joint:hinge>
+        <body:empty name="back_right_wheel">
+            <massMatrix>true</massMatrix>
+            <mass>2.63657</mass>
+            <ixx>0.0246688</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.0246688</iyy>
+            <iyz>0</iyz>
+            <izz>0.0441058</izz>
+            <cx>0</cx>
+            <cy>0</cy>
+            <cz>0.00019</cz>
+            <xyz>-0.256 -0.285475 0.1714</xyz>
+            <rpy>0 -0 0</rpy>
+            <geom:cylinder name="back_right_wheel_geom">
+                <xyz>0 0 0</xyz>
+                <rpy>-90 0 0</rpy>
+                <size>0.17775 0.1143</size>
+                <mu1>1</mu1>
+                <mu2>1</mu2>
+                <fdir1>1 0 0</fdir1>
+                <kp>100000</kp>
+                <kd>1</kd>
+                <genTexCoord>true</genTexCoord>
+                <visual>
+                    <xyz>0 0 0</xyz>
+                    <rpy>-90 0 0</rpy>
+                    <scale>1 1 1</scale>
+                    <mesh>/home/rgariepy/clearpath-projects/husky/clearpath_husky/husky_description/Media/models/wheel.stl</mesh>
+                    <material>Gazebo/Grey</material>
+                </visual>
+            </geom:cylinder>
+            <turnGravityOff>false</turnGravityOff>
+            <selfCollide>false</selfCollide>
+        </body:empty>
+        <joint:hinge name="joint_back_right_wheel">
+            <body1>back_right_wheel</body1>
+            <body2>base_footprint</body2>
+            <anchor>back_right_wheel</anchor>
+            <axis>0 1 0</axis>
+        </joint:hinge>
+        <body:empty name="front_left_wheel">
+            <massMatrix>true</massMatrix>
+            <mass>2.63657</mass>
+            <ixx>0.0246688</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.0246688</iyy>
+            <iyz>0</iyz>
+            <izz>0.0441058</izz>
+            <cx>0</cx>
+            <cy>0</cy>
+            <cz>0.00019</cz>
+            <xyz>0.256 0.285475 0.1714</xyz>
+            <rpy>0 -0 0</rpy>
+            <geom:cylinder name="front_left_wheel_geom">
+                <xyz>0 0 0</xyz>
+                <rpy>-90 0 0</rpy>
+                <size>0.17775 0.1143</size>
+                <mu1>1</mu1>
+                <mu2>1</mu2>
+                <fdir1>1 0 0</fdir1>
+                <kp>100000</kp>
+                <kd>1</kd>
+                <genTexCoord>true</genTexCoord>
+                <visual>
+                    <xyz>0 0 0</xyz>
+                    <rpy>-90 0 0</rpy>
+                    <scale>1 1 1</scale>
+                    <mesh>/home/rgariepy/clearpath-projects/husky/clearpath_husky/husky_description/Media/models/wheel.stl</mesh>
+                    <material>Gazebo/Grey</material>
+                </visual>
+            </geom:cylinder>
+            <turnGravityOff>false</turnGravityOff>
+            <selfCollide>false</selfCollide>
+        </body:empty>
+        <joint:hinge name="joint_front_left_wheel">
+            <body1>front_left_wheel</body1>
+            <body2>base_footprint</body2>
+            <anchor>front_left_wheel</anchor>
+            <axis>0 1 0</axis>
+        </joint:hinge>
+        <body:empty name="front_right_wheel">
+            <massMatrix>true</massMatrix>
+            <mass>2.63657</mass>
+            <ixx>0.0246688</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.0246688</iyy>
+            <iyz>0</iyz>
+            <izz>0.0441058</izz>
+            <cx>0</cx>
+            <cy>0</cy>
+            <cz>0.00019</cz>
+            <xyz>0.256 -0.285475 0.1714</xyz>
+            <rpy>0 -0 0</rpy>
+            <geom:cylinder name="front_right_wheel_geom">
+                <xyz>0 0 0</xyz>
+                <rpy>-90 0 0</rpy>
+                <size>0.17775 0.1143</size>
+                <mu1>1</mu1>
+                <mu2>1</mu2>
+                <fdir1>1 0 0</fdir1>
+                <kp>100000</kp>
+                <kd>1</kd>
+                <genTexCoord>true</genTexCoord>
+                <visual>
+                    <xyz>0 0 0</xyz>
+                    <rpy>-90 0 0</rpy>
+                    <scale>1 1 1</scale>
+                    <mesh>/home/rgariepy/clearpath-projects/husky/clearpath_husky/husky_description/Media/models/wheel.stl</mesh>
+                    <material>Gazebo/Grey</material>
+                </visual>
+            </geom:cylinder>
+            <turnGravityOff>false</turnGravityOff>
+            <selfCollide>false</selfCollide>
+        </body:empty>
+        <joint:hinge name="joint_front_right_wheel">
+            <body1>front_right_wheel</body1>
+            <body2>base_footprint</body2>
+            <anchor>front_right_wheel</anchor>
+            <axis>0 1 0</axis>
+        </joint:hinge>
+        <static>false</static>
+        <controller:husky_plugin name="husky_diff_controller" plugin="libhusky_gazebo_plugins.so">
+            <alwaysOn>true</alwaysOn>
+            <updateRate>100.0</updateRate>
+            <backLeftJoint>joint_back_left_wheel</backLeftJoint>
+            <backRightJoint>joint_back_right_wheel</backRightJoint>
+            <frontLeftJoint>joint_front_left_wheel</frontLeftJoint>
+            <frontRightJoint>joint_front_right_wheel</frontRightJoint>
+            <wheelSeparation>0.5709</wheelSeparation>
+            <wheelDiameter>0.3555</wheelDiameter>
+            <torque>35</torque>
+        </controller:husky_plugin>
+-->
+    </model>
+</sdf>
