@@ -1,6 +1,6 @@
 <package>
 	<description brief="husky_gazebo_plugins">
-		Clearpath Husky A200 Robot Description
+		Clearpath Husky A200 Gazebo Plugin
 	</description>
 	<author>Ryan Gariepy/Clearpath Robotics</author>
 	<license>BSD</license>
