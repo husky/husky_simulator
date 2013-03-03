@@ -35,7 +35,7 @@ robot model in Gazebo
 
 	<!-- Spawn robot in gazebo -->
 	<node name="spawn_robot" pkg="gazebo" type="spawn_model"
-		args="-file $(find husky_gazebo)/models/husky/husky.sdf
+		args="-file $(find husky_description)/models/husky/husky.sdf
 		-gazebo
 		-model husky"
 		respawn="false" output="screen" />

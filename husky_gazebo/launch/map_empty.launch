@@ -29,7 +29,7 @@ This program contains the launch file for viewing an empty ground plane in Gazeb
 <launch>
     <!-- Environment variable setup -->
     <env name="GAZEBO_PLUGIN_PATH" value="$(find husky_gazebo_plugins)/lib"/>
-    <env name="GAZEBO_MODEL_PATH" value="$(find husky_gazebo)/models"/>
+    <env name="GAZEBO_MODEL_PATH" value="$(find husky_description)/models"/>
 
 	<!-- Start the simulator -->
 	<node name="gazebo" pkg="gazebo" type="gazebo" args="$(find husky_gazebo)/worlds/empty.world" output="screen" respawn="false" />
