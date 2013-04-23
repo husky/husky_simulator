@@ -92,6 +92,8 @@ namespace gazebo
 
       // Pointer to the update event connection
       event::ConnectionPtr updateConnection;
+
+      bool kill_sim;
   };
 }
 #endif

@@ -48,6 +48,7 @@ enum {BL= 0, BR=1, FL=2, FR=3};
 
 HuskyPlugin::HuskyPlugin()
 {
+  kill_sim = false;
   this->spinner_thread_ = new boost::thread( boost::bind( &HuskyPlugin::spin, this) );
 
   wheel_speed_ = new float[2];
@@ -71,6 +72,7 @@ HuskyPlugin::~HuskyPlugin()
   event::Events::DisconnectWorldUpdateStart(this->updateConnection);
 
   rosnode_->shutdown();
+  kill_sim = true;
   this->spinner_thread_->join();
   delete this->spinner_thread_;
   delete [] wheel_speed_;
@@ -359,7 +361,7 @@ void HuskyPlugin::OnCmdVel( const geometry_msgs::TwistConstPtr &msg)
 
 void HuskyPlugin::spin()
 {
-  while(ros::ok()) ros::spinOnce();
+  while(ros::ok() && !kill_sim) ros::spinOnce();
 }
 
 GZ_REGISTER_MODEL_PLUGIN(HuskyPlugin);
