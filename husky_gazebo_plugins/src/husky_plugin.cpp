@@ -67,6 +67,8 @@ HuskyPlugin::HuskyPlugin()
 
 HuskyPlugin::~HuskyPlugin()
 {
+  event::Events::DisconnectWorldUpdateStart(this->updateConnection);
+
   rosnode_->shutdown();
   this->spinner_thread_->join();
   delete this->spinner_thread_;
