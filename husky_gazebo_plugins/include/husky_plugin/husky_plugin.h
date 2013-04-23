@@ -90,8 +90,6 @@ namespace gazebo
       void spin();
       boost::thread *spinner_thread_;
 
-      event::ConnectionPtr contact_event_;
-
       // Pointer to the update event connection
       event::ConnectionPtr updateConnection;
   };
