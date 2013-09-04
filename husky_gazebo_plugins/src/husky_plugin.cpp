@@ -278,7 +278,7 @@ void HuskyPlugin::UpdateChild()
   odom.pose.pose.position.z = 0;
 
   tf::Quaternion qt;
-  qt.setEuler(odom_pose_[2], 0, 0);
+  qt.setEulerZYX(odom_pose_[2], 0, 0);
 
   odom.pose.pose.orientation.x = qt.getX();
   odom.pose.pose.orientation.y = qt.getY();
