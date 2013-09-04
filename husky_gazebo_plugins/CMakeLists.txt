@@ -29,14 +29,7 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 #rosbuild_link_boost(${PROJECT_NAME} thread)
 #rosbuild_add_executable(example examples/example.cpp)
 #target_link_libraries(example ${PROJECT_NAME})
-
-# Build different versions of the simulator plugin
-if($ENV{ROS_DISTRO} STREQUAL "fuerte")
-  # Fuerte
-  rosbuild_add_library(${PROJECT_NAME} src/husky_plugin.cpp)
-else()
-  # Electric and earlier
-  rosbuild_add_library(${PROJECT_NAME} src/husky_controller.cpp)
-endif()
+  
+rosbuild_add_library(${PROJECT_NAME} src/husky_plugin.cpp)
 
 #rosbuild_link_boost(${PROJECT_NAME} thread)

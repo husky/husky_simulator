@@ -1,6 +1,6 @@
 <package>
 	<description brief="husky_gazebo_plugins">
-		Clearpath Husky A200 Robot Description
+		Clearpath Husky A200 Gazebo Plugin
 	</description>
 	<author>Ryan Gariepy/Clearpath Robotics</author>
 	<license>BSD</license>
@@ -9,6 +9,7 @@
 	<!--ROS specific-->
 	<depend package="std_msgs"/>
 	<depend package="roscpp"/>
+	<depend package="tf"/>
 	<!--Gazebo specific-->
 	<depend package="gazebo" />
 	<depend package="gazebo_tools" />

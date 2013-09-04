@@ -28,8 +28,7 @@
  */
 
 /*
- * Desc: Gazebo 1.x plugin for a Clearpath Robotics Husky A200
- * Adapted from the TurtleBot plugin
+ * Desc: Gazebo 1.3 plugin for a Clearpath Robotics Husky A200
  * Author: Ryan Gariepy
  */ 
 
@@ -278,8 +277,8 @@ void HuskyPlugin::UpdateChild()
   odom.pose.pose.position.y = odom_pose_[1];
   odom.pose.pose.position.z = 0;
 
-  btQuaternion qt;
-  qt.setEuler(0,0,odom_pose_[2]);
+  tf::Quaternion qt;
+  qt.setEuler(odom_pose_[2], 0, 0);
 
   odom.pose.pose.orientation.x = qt.getX();
   odom.pose.pose.orientation.y = qt.getY();
