@@ -87,46 +87,46 @@ void HuskyPlugin::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf )
 
   this->node_namespace_ = "";
   if (_sdf->HasElement("robotNamespace"))
-    this->node_namespace_ = _sdf->GetElement("robotNamespace")->GetValueString() + "/";
+    this->node_namespace_ = _sdf->GetElement("robotNamespace")->Get<std::string>() + "/";
 
 
   bl_joint_name_ = "backLeftJoint";
   if (_sdf->HasElement("backLeftJoint"))
-    bl_joint_name_ = _sdf->GetElement("backLeftJoint")->GetValueString();
+    bl_joint_name_ = _sdf->GetElement("backLeftJoint")->Get<std::string>();
 
   br_joint_name_ = "backRightJoint";
   if (_sdf->HasElement("backRightJoint"))
-    br_joint_name_ = _sdf->GetElement("backRightJoint")->GetValueString();
+    br_joint_name_ = _sdf->GetElement("backRightJoint")->Get<std::string>();
 
   fl_joint_name_ = "frontLeftJoint";
   if (_sdf->HasElement("frontLeftJoint"))
-    fl_joint_name_ = _sdf->GetElement("frontLeftJoint")->GetValueString();
+    fl_joint_name_ = _sdf->GetElement("frontLeftJoint")->Get<std::string>();
 
   fr_joint_name_ = "frontRightJoint";
   if (_sdf->HasElement("frontRightJoint"))
-    fr_joint_name_ = _sdf->GetElement("frontRightJoint")->GetValueString();
+    fr_joint_name_ = _sdf->GetElement("frontRightJoint")->Get<std::string>();
 
   wheel_sep_ = 0.55;
   if (_sdf->HasElement("wheelSeparation"))
-    wheel_sep_ = _sdf->GetElement("wheelSeparation")->GetValueDouble();
+    wheel_sep_ = _sdf->GetElement("wheelSeparation")->Get<double>();
 
   wheel_diam_ = 0.30;
   if (_sdf->HasElement("wheelDiameter"))
-    wheel_diam_ = _sdf->GetElement("wheelDiameter")->GetValueDouble();
+    wheel_diam_ = _sdf->GetElement("wheelDiameter")->Get<double>();
 
   torque_ = 15.0;
   if (_sdf->HasElement("torque"))
-    torque_ = _sdf->GetElement("torque")->GetValueDouble();
+    torque_ = _sdf->GetElement("torque")->Get<double>();
 
   base_geom_name_ = "base_link";
   if (_sdf->HasElement("baseGeom"))
-    base_geom_name_ = _sdf->GetElement("baseGeom")->GetValueString();
+    base_geom_name_ = _sdf->GetElement("baseGeom")->Get<std::string>();
   base_geom_ = model_->GetChildCollision(base_geom_name_);
 
   //base_geom_->SetContactsEnabled(true);
 
   // Get the name of the parent model
-  std::string modelName = _sdf->GetParent()->GetValueString("name");
+  std::string modelName = _sdf->GetParent()->Get<std::string>("name");
 
   // Listen to the update event. This event is broadcast every
   // simulation iteration.
