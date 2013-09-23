@@ -40,5 +40,8 @@ robot model in Gazebo
     <node name="spawn_husky_model" pkg="gazebo_ros" type="spawn_model" 
 args="$(optenv ROBOT_INITIAL_POSE) -unpause -urdf -param robot_description -model mobile_base"/>
 
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+        <param name="publish_frequency" type="double" value="30.0" />
+    </node>
 
 </launch>
