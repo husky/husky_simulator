@@ -28,7 +28,8 @@
  */
 
 /*
- * Desc: Gazebo 1.3 plugin for a Clearpath Robotics Husky A200
+ * Desc: Gazebo 1.x plugin for a Clearpath Robotics Husky A200
+ * Adapted from the TurtleBot plugin
  * Author: Ryan Gariepy
  */ 
 
@@ -60,6 +61,7 @@ HuskyPlugin::HuskyPlugin()
   set_joints_[1] = false;
   set_joints_[2] = false;
   set_joints_[3] = false;
+
   joints_[0].reset();
   joints_[1].reset();
   joints_[2].reset();
@@ -68,7 +70,7 @@ HuskyPlugin::HuskyPlugin()
 
 HuskyPlugin::~HuskyPlugin()
 {
-  event::Events::DisconnectWorldUpdateStart(this->updateConnection);
+  event::Events::DisconnectWorldUpdateBegin(this->updateConnection);
 
   rosnode_->shutdown();
   kill_sim = true;
@@ -116,7 +118,6 @@ void HuskyPlugin::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf )
   if (_sdf->HasElement("torque"))
     torque_ = _sdf->GetElement("torque")->GetValueDouble();
 
-
   base_geom_name_ = "base_link";
   if (_sdf->HasElement("baseGeom"))
     base_geom_name_ = _sdf->GetElement("baseGeom")->GetValueString();
@@ -129,7 +130,7 @@ void HuskyPlugin::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf )
 
   // Listen to the update event. This event is broadcast every
   // simulation iteration.
-  this->updateConnection = event::Events::ConnectWorldUpdateStart(
+  this->updateConnection = event::Events::ConnectWorldUpdateBegin(
       boost::bind(&HuskyPlugin::UpdateChild, this));
   gzdbg << "Plugin model name: " << modelName << "\n";
 
@@ -278,7 +279,7 @@ void HuskyPlugin::UpdateChild()
   odom.pose.pose.position.z = 0;
 
   tf::Quaternion qt;
-  qt.setEulerZYX(odom_pose_[2], 0, 0);
+  qt.setEuler(0,0,odom_pose_[2]);
 
   odom.pose.pose.orientation.x = qt.getX();
   odom.pose.pose.orientation.y = qt.getY();
@@ -309,25 +310,25 @@ void HuskyPlugin::UpdateChild()
   js_.header.stamp.nsec = time_now.nsec;
   if (this->set_joints_[BL])
   {
-    js_.position[0] = joints_[BL]->GetAngle(0).GetAsRadian();
+    js_.position[0] = joints_[BL]->GetAngle(0).Radian();
     js_.velocity[0] = joints_[BL]->GetVelocity(0);
   }
 
   if (this->set_joints_[BR])
   {
-    js_.position[1] = joints_[BR]->GetAngle(0).GetAsRadian();
+    js_.position[1] = joints_[BR]->GetAngle(0).Radian();
     js_.velocity[1] = joints_[BR]->GetVelocity(0);
   }
 
   if (this->set_joints_[FL])
   {
-    js_.position[2] = joints_[FL]->GetAngle(0).GetAsRadian();
+    js_.position[2] = joints_[FL]->GetAngle(0).Radian();
     js_.velocity[2] = joints_[FL]->GetVelocity(0);
   }
 
   if (this->set_joints_[FR])
   {
-    js_.position[3] = joints_[FR]->GetAngle(0).GetAsRadian();
+    js_.position[3] = joints_[FR]->GetAngle(0).Radian();
     js_.velocity[3] = joints_[FR]->GetVelocity(0);
   }
 
