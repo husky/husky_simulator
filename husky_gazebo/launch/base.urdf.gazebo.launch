@@ -30,7 +30,8 @@ robot model in Gazebo
 -->
 
 <launch>
-  <arg name="with_sensors" default="true" />
+  <!-- The with_sensors configuration is still problematic. Please avoid for now. -->
+  <arg name="with_sensors" default="false" />
 
   <param name="use_sim_time" value="true" />
 
