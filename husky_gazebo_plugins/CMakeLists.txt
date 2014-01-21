@@ -51,7 +51,7 @@ find_package(gazebo)
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   INCLUDE_DIRS include
-  LIBRARIES husky_gazebo_plugins
+  LIBRARIES husky_gazebo_plugins husky_tudarmstadt_gps_plugin
   CATKIN_DEPENDS gazebo_plugins gazebo_ros gazebo_msgs roscpp std_msgs
   DEPENDS system_lib
 )
@@ -73,6 +73,10 @@ include_directories(
    src/husky_plugin.cpp
  )
 
+ add_library(husky_tudarmstadt_gps_plugin
+   src/gazebo_ros_gps.cpp
+ )
+
 ## Declare a cpp executable
 # add_executable(husky_gazebo_plugins_node src/husky_gazebo_plugins_node.cpp)
 
@@ -82,6 +86,10 @@ include_directories(
 
 ## Specify libraries to link a library or executable target against
  target_link_libraries(husky_gazebo_plugins
+   ${catkin_LIBRARIES}
+   ${GAZEBO_LIBRARIES}
+ )
+ target_link_libraries(husky_tudarmstadt_gps_plugin
    ${catkin_LIBRARIES}
    ${GAZEBO_LIBRARIES}
  )
@@ -105,6 +113,9 @@ install(TARGETS husky_gazebo_plugins
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 )
 
+install(TARGETS husky_tudarmstadt_gps_plugin
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+)
 ## Mark cpp header files for installation
 # install(DIRECTORY include/${PROJECT_NAME}/
 #   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
