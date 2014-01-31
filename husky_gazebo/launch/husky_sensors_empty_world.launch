@@ -30,16 +30,18 @@ robot model in Gazebo
 -->
 
 <launch>
-    <include file="$(find husky_gazebo)/launch/base.sensors.urdf.gazebo.launch"/>
-    <include file="$(find gazebo_ros)/launch/empty_world.launch"/>
-    <node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf">
-      <rosparam>
-        freq: 10.0
-        sensor_timeout: 1.0
-        publish_tf: true
-        odom_used: true
-        vo_used: true
-        output_frame: odom
-      </rosparam>
-    </node>
+  <include file="$(find husky_gazebo)/launch/base.sensors.urdf.gazebo.launch"/>
+  <include file="$(find gazebo_ros)/launch/empty_world.launch"/>
+  <node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf">
+    <rosparam>
+      freq: 10.0
+      sensor_timeout: 1.0
+      output_frame: odom
+      publish_tf: true
+      odom_used: true
+      vo_used: false
+      gps_used: false 
+      imu_absolute: false
+    </rosparam>
+  </node>
 </launch>
