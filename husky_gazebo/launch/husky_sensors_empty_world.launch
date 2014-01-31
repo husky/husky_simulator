@@ -40,8 +40,17 @@ robot model in Gazebo
       publish_tf: true
       odom_used: true
       vo_used: false
-      gps_used: false 
-      imu_absolute: false
+      gps_used: true 
+      imu_absolute: true
     </rosparam>
   </node>
+    
+  <!-- ENU translation -->
+  <group ns="navsat">
+    <node pkg="enu" type="from_fix" name="enu_from_fix">
+      <param name="invalid_covariance_value" value="1000000" />
+      <param name="lock_altitude" value="0"/>
+      <param name="scale_covariance" value="0.05"/>
+    </node>
+  </group>
 </launch>
