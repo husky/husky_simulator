@@ -51,7 +51,7 @@ HuskyPlugin::HuskyPlugin()
   kill_sim = false;
   this->spinner_thread_ = new boost::thread( boost::bind( &HuskyPlugin::spin, this) );
 
-  wheel_speed_ = new float[2];
+  wheel_speed_ = new float[4];
   wheel_speed_[BL] = 0.0;
   wheel_speed_[BR] = 0.0;
   wheel_speed_[FL] = 0.0;
