@@ -32,13 +32,13 @@ robot model in Gazebo
 <launch>
     <arg name="gps_enabled" default="true"/>
     <arg name="imu_enabled" default="true"/>
-    <arg name="lidar_enabled" default="true"/>
+    <arg name="front_laser" default="true"/>
     <!-- Send the Husky A200 Robot URDF/XACRO to param server -->
     <param name="robot_description" command="$(find xacro)/xacro.py 
       '$(find husky_description)/urdf/base.urdf.xacro' 
         gps_enabled:=$(arg gps_enabled)
         imu_enabled:=$(arg imu_enabled)
-        lidar_enabled:=$(arg lidar_enabled)
+	front_laser:=$(arg front_laser)
     " />
     <!-- Spawn robot in gazebo -->
     <node name="spawn_husky_model" pkg="gazebo_ros" type="spawn_model" 

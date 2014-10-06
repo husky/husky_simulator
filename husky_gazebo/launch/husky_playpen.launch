@@ -33,7 +33,7 @@ robot model in Gazebo
   <include file="$(find husky_gazebo)/launch/base.urdf.gazebo.launch">
     <arg name="gps_enabled" value="true"/>
     <arg name="imu_enabled" value="true"/>
-    <arg name="lidar_enabled" value="true"/>
+    <arg name="front_laser" value="true"/>
   </include>
 
   <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
