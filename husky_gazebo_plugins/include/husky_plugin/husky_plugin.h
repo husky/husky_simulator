@@ -34,6 +34,7 @@ namespace gazebo
       virtual void Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf );
 
       virtual void UpdateChild();
+      
   
     private:
 
@@ -41,6 +42,7 @@ namespace gazebo
       void OnCmdVel( const geometry_msgs::TwistConstPtr &msg);
 
 
+      void publishOdometry(common::Time time_now);
       /// Parameters
       std::string node_namespace_;
       std::string bl_joint_name_;
@@ -79,6 +81,9 @@ namespace gazebo
 
       float odom_pose_[3];
       float odom_vel_[3];
+      float odom_dr_, odom_da_;
+      common::Time prev_odom_time_;
+      int odom_pub_counter_;
 
       bool set_joints_[4];
       physics::JointPtr joints_[4];

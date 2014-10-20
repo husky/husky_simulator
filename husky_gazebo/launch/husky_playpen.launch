@@ -47,7 +47,7 @@ robot model in Gazebo
   </include>
 
 
-  <node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf">
+  <!--node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf">
     <rosparam>
       freq: 10.0
       sensor_timeout: 1.0
@@ -56,5 +56,5 @@ robot model in Gazebo
       vo_used: true
       output_frame: odom
     </rosparam>
-  </node>
+  </node-->
 </launch>
