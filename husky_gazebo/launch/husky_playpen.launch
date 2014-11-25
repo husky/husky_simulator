@@ -30,20 +30,31 @@ robot model in Gazebo
 -->
 
 <launch>
-    <arg name="gps_enabled" default="true"/>
-    <arg name="imu_enabled" default="true"/>
-    <arg name="front_laser" default="true"/>
-    <!-- Send the Husky A200 Robot URDF/XACRO to param server -->
-    <param name="robot_description" command="$(find xacro)/xacro.py 
-      '$(find husky_description)/urdf/base.urdf.xacro' 
-        gps_enabled:=$(arg gps_enabled)
-        imu_enabled:=$(arg imu_enabled)
-	front_laser:=$(arg front_laser)
-    " />
-    <!-- Spawn robot in gazebo -->
-    <node name="spawn_husky_model" pkg="gazebo_ros" type="spawn_model" 
-args="$(optenv ROBOT_INITIAL_POSE) -unpause -urdf -param robot_description -model mobile_base"/>
-    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
-        <param name="publish_frequency" type="double" value="30.0" />
-    </node>
+  <include file="$(find husky_gazebo)/launch/base.urdf.gazebo.launch">
+    <arg name="gps_enabled" value="true"/>
+    <arg name="imu_enabled" value="true"/>
+    <arg name="front_laser" value="true"/>
+  </include>
+
+  <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find husky_gazebo)/worlds/clearpath_playpen"/> <!-- Note: the world_name is with respect to GAZEBO_RESOURCE_PATH environmental variable -->
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="headless" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>
+
+
+  <!--node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf">
+    <rosparam>
+      freq: 10.0
+      sensor_timeout: 1.0
+      publish_tf: true
+      odom_used: true
+      vo_used: true
+      output_frame: odom
+    </rosparam>
+  </node-->
 </launch>

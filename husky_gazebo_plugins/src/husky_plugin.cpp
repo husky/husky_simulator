@@ -170,7 +170,10 @@ void HuskyPlugin::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf )
   js_.effort.push_back(0);
 
   prev_update_time_ = 0;
+  prev_odom_time_ = 0;
   last_cmd_vel_time_ = 0;
+  odom_dr_ = 0;
+  odom_da_ = 0;
 
   joints_[BL] = model_->GetJoint(bl_joint_name_);
   joints_[BR] = model_->GetJoint(br_joint_name_);
@@ -189,6 +192,58 @@ void HuskyPlugin::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf )
   odom_pose_[2] = 0.0;
 }
 
+void HuskyPlugin::publishOdometry(common::Time time_now) {
+
+  common::Time step_time = time_now - prev_odom_time_;
+  prev_odom_time_ = time_now;
+
+  // Compute odometric pose
+  odom_pose_[0] += odom_dr_ * cos( odom_pose_[2] );
+  odom_pose_[1] += odom_dr_ * sin( odom_pose_[2] );
+  odom_pose_[2] += odom_da_;
+
+  // Compute odometric instantaneous velocity
+  odom_vel_[0] = odom_dr_ / step_time.Double();
+  odom_vel_[1] = 0.0;
+  odom_vel_[2] = odom_da_ / step_time.Double();
+
+  nav_msgs::Odometry odom;
+  odom.header.stamp.sec = time_now.sec;
+  odom.header.stamp.nsec = time_now.nsec;
+  odom.header.frame_id = "odom";
+  odom.child_frame_id = "base_footprint";
+  odom.pose.pose.position.x = odom_pose_[0];
+  odom.pose.pose.position.y = odom_pose_[1];
+  odom.pose.pose.position.z = 0;
+
+  tf::Quaternion qt;
+  qt.setRPY(0,0,odom_pose_[2]);
+
+  odom.pose.pose.orientation.x = qt.getX();
+  odom.pose.pose.orientation.y = qt.getY();
+  odom.pose.pose.orientation.z = qt.getZ();
+  odom.pose.pose.orientation.w = qt.getW();
+
+  double pose_cov[36] = { 1e-3, 0, 0, 0, 0, 0,
+                          0, 1e-3, 0, 0, 0, 0,
+                          0, 0, 1e6, 0, 0, 0,
+                          0, 0, 0, 1e6, 0, 0,
+                          0, 0, 0, 0, 1e6, 0,
+                          0, 0, 0, 0, 0, 1e3};
+
+  memcpy( &odom.pose.covariance[0], pose_cov, sizeof(double)*36 );
+  memcpy( &odom.twist.covariance[0], pose_cov, sizeof(double)*36 );
+
+  odom.twist.twist.linear.x = odom_vel_[0];
+  odom.twist.twist.linear.y = 0;
+  odom.twist.twist.linear.z = 0;
+
+  odom.twist.twist.angular.x = 0;
+  odom.twist.twist.angular.y = 0;
+  odom.twist.twist.angular.z = odom_vel_[2];
+
+  odom_pub_.publish( odom ); 
+}
 
 void HuskyPlugin::UpdateChild()
 {
@@ -237,15 +292,18 @@ void HuskyPlugin::UpdateChild()
   dr = (d_bl + d_br + d_fl + d_fr) / 4;
   da = ((d_br+d_fr)/2 - (d_bl+d_fl)/2) / ws;
 
-  // Compute odometric pose
-  odom_pose_[0] += dr * cos( odom_pose_[2] );
-  odom_pose_[1] += dr * sin( odom_pose_[2] );
-  odom_pose_[2] += da;
+  
+  odom_pub_counter_++;
+  odom_dr_ += dr;
+  odom_da_ += da;
+  double reqd_period = 0.04;
+  if (odom_pub_counter_ >= reqd_period/step_time.Double()) {
+     publishOdometry(time_now);
+     odom_pub_counter_ = 0;
+     odom_dr_ = 0;
+     odom_da_ = 0;
+  }
 
-  // Compute odometric instantaneous velocity
-  odom_vel_[0] = dr / step_time.Double();
-  odom_vel_[1] = 0.0;
-  odom_vel_[2] = da / step_time.Double();
 
 
   if (set_joints_[BL])
@@ -269,42 +327,7 @@ void HuskyPlugin::UpdateChild()
     joints_[FR]->SetMaxForce( 0, torque_ );
   }
 
-  nav_msgs::Odometry odom;
-  odom.header.stamp.sec = time_now.sec;
-  odom.header.stamp.nsec = time_now.nsec;
-  odom.header.frame_id = "odom";
-  odom.child_frame_id = "base_footprint";
-  odom.pose.pose.position.x = odom_pose_[0];
-  odom.pose.pose.position.y = odom_pose_[1];
-  odom.pose.pose.position.z = 0;
 
-  tf::Quaternion qt;
-  qt.setRPY(0,0,odom_pose_[2]);
-
-  odom.pose.pose.orientation.x = qt.getX();
-  odom.pose.pose.orientation.y = qt.getY();
-  odom.pose.pose.orientation.z = qt.getZ();
-  odom.pose.pose.orientation.w = qt.getW();
-
-  double pose_cov[36] = { 1e-3, 0, 0, 0, 0, 0,
-                          0, 1e-3, 0, 0, 0, 0,
-                          0, 0, 1e6, 0, 0, 0,
-                          0, 0, 0, 1e6, 0, 0,
-                          0, 0, 0, 0, 1e6, 0,
-                          0, 0, 0, 0, 0, 1e3};
-
-  memcpy( &odom.pose.covariance[0], pose_cov, sizeof(double)*36 );
-  memcpy( &odom.twist.covariance[0], pose_cov, sizeof(double)*36 );
-
-  odom.twist.twist.linear.x = 0;
-  odom.twist.twist.linear.y = 0;
-  odom.twist.twist.linear.z = 0;
-
-  odom.twist.twist.angular.x = 0;
-  odom.twist.twist.angular.y = 0;
-  odom.twist.twist.angular.z = 0;
-
-  odom_pub_.publish( odom ); 
 
   js_.header.stamp.sec = time_now.sec;
   js_.header.stamp.nsec = time_now.nsec;
