@@ -39,14 +39,4 @@ robot model in Gazebo
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="use_sim_time" value="true"/>
   </include>
-  <node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf">
-    <rosparam>
-      freq: 10.0
-      sensor_timeout: 1.0
-      publish_tf: true
-      odom_used: true
-      vo_used: true
-      output_frame: odom
-    </rosparam>
-  </node>
 </launch>
