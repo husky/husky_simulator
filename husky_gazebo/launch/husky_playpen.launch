@@ -45,16 +45,4 @@ robot model in Gazebo
     <arg name="headless" value="false"/>
     <arg name="debug" value="false"/>
   </include>
-
-
-  <!--node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf">
-    <rosparam>
-      freq: 10.0
-      sensor_timeout: 1.0
-      publish_tf: true
-      odom_used: true
-      vo_used: true
-      output_frame: odom
-    </rosparam>
-  </node-->
 </launch>
