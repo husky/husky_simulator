@@ -10,7 +10,7 @@ catkin_package(
 )
 
 install(
-  DIRECTORY launch
+  DIRECTORY launch worlds
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
 
