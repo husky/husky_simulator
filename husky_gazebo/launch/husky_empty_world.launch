@@ -38,9 +38,9 @@ robot model in Gazebo
   </include>
 
   <include file="$(find husky_gazebo)/launch/base.urdf.gazebo.launch">
-    <arg name="gps_enabled" value="false"/>
-    <arg name="imu_enabled" value="false"/>
-    <arg name="front_laser" value="false"/>
+    <arg name="gps_enabled" value="true"/>
+    <arg name="imu_enabled" value="true"/>
+    <arg name="front_laser" value="true"/>
   </include>
 
 </launch>
