@@ -30,14 +30,9 @@ robot model in Gazebo
 -->
 
 <launch>
-  <include file="$(find husky_gazebo)/launch/base.urdf.gazebo.launch">
-    <arg name="gps_enabled" value="true"/>
-    <arg name="imu_enabled" value="true"/>
-    <arg name="front_laser" value="true"/>
-  </include>
 
   <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
-  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+  <include file="$(find husky_gazebo)/launch/husky_empty_world.launch">
     <arg name="world_name" value="$(find husky_gazebo)/worlds/clearpath_playpen"/> <!-- world_name is wrt GAZEBO_RESOURCE_PATH environment variable -->
   </include>
 
