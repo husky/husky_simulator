@@ -2,7 +2,7 @@
 <package>
   <name>husky_gazebo</name>
   <version>0.0.3</version>
-  <description>The husky_gazebo package</description>
+  <description>Clearpath Husky simulator bringup</description>
 
   <maintainer email="pbovbel@clearpathrobotics.com">Paul Bovbel</maintainer>
 
