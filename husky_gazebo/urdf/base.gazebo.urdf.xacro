@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<robot name="husky" xmlns:xacro="http://ros.org/wiki/xacro">
+
+    <!-- PROPERTY LIST -->
+    <property name="M_PI" value="3.1415926535897931" />
+
+    <!-- Include the base robot, which has the old diff-drive plugin -->
+    <xacro:include filename="$(find husky_description)/urdf/base.urdf.xacro" />
+
+    <!-- And also add the sensors-->
+    <xacro:include filename="$(find husky_gazebo)/urdf/sick_lms100.urdf.xacro" />
+    <xacro:if value="$(arg front_laser)">
+        <link name="sick_bracket_link">
+            <visual>
+                <geometry>
+                    <mesh filename="package://husky_gazebo/meshes/lidar_mount.stl" />
+                </geometry>
+                <material name="DarkGrey" />
+            </visual>
+        </link>
+        <joint name="sick_bracket" type="fixed">
+            <origin xyz="-0.12 0 0" rpy="0 0 0" />
+            <parent link="base_footprint_front_bumper_part" />
+            <child link="sick_bracket_link" />
+        </joint>
+        <gazebo reference="sick_bracket_link">
+            <material>Gazebo/DarkGrey</material>
+            <turnGravityOff>false</turnGravityOff>
+        </gazebo>
+
+        <xacro:sick_lms100 prefix="front" />
+
+        <joint name="front_laser_joint" type="fixed">
+            <origin xyz="0.07 0 0.17" rpy="0 0 0" />
+            <parent link="sick_bracket_link" />
+            <child link="front_laser" />
+        </joint>
+    </xacro:if>
+
+    <xacro:if value="$(arg imu_enabled)">
+        <gazebo>
+            <plugin name="imu_controller" filename="libhector_gazebo_ros_imu.so">
+                <robotNamespace>/</robotNamespace>
+                <updateRate>50.0</updateRate> 
+                <bodyName>base_link</bodyName>
+                <topicName>imu_data</topicName>
+                <accelDrift>0.005 0.005 0.005</accelDrift>
+                <accelGaussianNoise>0.005 0.005 0.005</accelGaussianNoise>
+                <rateDrift>0.005 0.005 0.005 </rateDrift>
+                <rateGaussianNoise>0.005 0.005 0.005 </rateGaussianNoise>
+                <headingDrift>0.005</headingDrift>
+                <headingGaussianNoise>0.005</headingGaussianNoise>
+            </plugin>
+        </gazebo>
+    </xacro:if>
+
+    <xacro:if value="$(arg gps_enabled)">
+        <gazebo>
+            <plugin name="gps_controller" filename="libhector_gazebo_ros_gps.so">
+                <updateRate>40</updateRate>
+                <robotNamespace>/</robotNamespace>
+                <bodyName>base_link</bodyName>
+                <frameId>base_link</frameId>
+                <topicName>/navsat/fix</topicName>
+                <velocityTopicName>/navsat/vel</velocityTopicName>
+                <referenceLatitude>49.9</referenceLatitude>
+                <referenceLongitude>8.9</referenceLongitude>
+                <referenceHeading>0</referenceHeading>
+                <referenceAltitude>0</referenceAltitude>
+                <drift>0.0001 0.0001 0.0001</drift>
+            </plugin>
+        </gazebo>
+    </xacro:if>
+
+</robot>

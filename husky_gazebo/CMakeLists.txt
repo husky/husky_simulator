@@ -4,13 +4,13 @@ project(husky_gazebo)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED)
+find_package(catkin REQUIRED husky_gazebo_plugins)
 
 catkin_package(
 )
 
 install(
-  DIRECTORY launch
+  DIRECTORY launch urdf meshes
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
 
