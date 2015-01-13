@@ -2,6 +2,13 @@
 Changelog for package husky_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Major refactor for indigo:
+  * All gazebo plugins moved to urdf/description.gazebo.xacro from husky_description
+  * Ported to ros_control
+* Contributors: James Servos, Mike Purvis, Paul Bovbel, Prasenjit Mukherjee, y22ma
+
 0.0.3 (2013-11-01)
 ------------------
 
