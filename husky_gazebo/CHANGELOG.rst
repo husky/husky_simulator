@@ -2,8 +2,8 @@
 Changelog for package husky_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.0 (2015-01-13)
+------------------
 * Major refactor for indigo:
   * All gazebo plugins moved to urdf/description.gazebo.xacro from husky_description
   * Ported to ros_control

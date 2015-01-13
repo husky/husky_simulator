@@ -2,8 +2,8 @@
 Changelog for package husky_simulator
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.0 (2015-01-13)
+------------------
 * Removed husky_gazebo_plugins in favor of ros_control
 * Contributors: Paul Bovbel
 
