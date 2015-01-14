@@ -2,8 +2,8 @@
 Changelog for package husky_simulator
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.1 (2015-01-14)
+------------------
 * Contributors: Paul Bovbel
 
 0.1.0 (2015-01-13)

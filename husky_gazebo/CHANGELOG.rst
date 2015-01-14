@@ -2,8 +2,8 @@
 Changelog for package husky_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.1 (2015-01-14)
+------------------
 * Remove multirobot prefixing, experiment later
 * Contributors: Paul Bovbel
 
