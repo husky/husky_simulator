@@ -29,12 +29,19 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
   <xacro:arg name="imu_enabled" default="true" />
   <xacro:arg name="gps_enabled" default="true" />
 
-  <xacro:include filename="$(find husky_description)/urdf/husky.urdf.xacro" />
+  <xacro:include filename="$(find husky_description)/urdf/husky.urdf.xacro" />  
   <xacro:include filename="$(find husky_gazebo)/urdf/sick_lms100.urdf.xacro" />
-  
-  <xacro:macro name="husky_gazebo_robot" params="prefix">
 
-    <xacro:husky_robot prefix="${prefix}" />
+  <xacro:macro name="husky_gazebo_robot">
+
+    <xacro:husky_robot />
+
+    <!-- Gazebo plugin for ROS Control -->
+    <gazebo>
+      <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+        <robotNamespace>/</robotNamespace>
+      </plugin>
+    </gazebo>
 
     <xacro:if value="$(arg front_laser)">
 
@@ -65,19 +72,13 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
       </joint>
     </xacro:if>
 
-    <gazebo>
-      <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-        <robotNamespace>/</robotNamespace>
-      </plugin>
-    </gazebo>
-
     <xacro:if value="$(arg imu_enabled)">
       <gazebo>
         <plugin name="imu_controller" filename="libhector_gazebo_ros_imu.so">
           <robotNamespace>/</robotNamespace>
           <updateRate>50.0</updateRate> 
           <bodyName>base_link</bodyName>
-          <topicName>imu/data_compass</topicName>
+          <topicName>imu/data</topicName>
           <accelDrift>0.005 0.005 0.005</accelDrift>
           <accelGaussianNoise>0.005 0.005 0.005</accelGaussianNoise>
           <rateDrift>0.005 0.005 0.005 </rateDrift>
@@ -95,8 +96,8 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
           <robotNamespace>/</robotNamespace>
           <bodyName>base_link</bodyName>
           <frameId>base_link</frameId>
-          <topicName>/navsat/fix</topicName>
-          <velocityTopicName>/navsat/vel</velocityTopicName>
+          <topicName>navsat/fix</topicName>
+          <velocityTopicName>navsat/vel</velocityTopicName>
           <referenceLatitude>49.9</referenceLatitude>
           <referenceLongitude>8.9</referenceLongitude>
           <referenceHeading>0</referenceHeading>
