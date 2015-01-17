@@ -83,7 +83,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
           </scan>
           <range>
             <min>0.10</min>
-            <max>30.0</max>
+            <max>6.0</max>
             <resolution>0.01</resolution>
           </range>
           <noise>
