@@ -2,6 +2,13 @@
 Changelog for package husky_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Update authors
+* Add missing dependency
+* Reduce sensor range
+* Contributors: Paul Bovbel
+
 0.1.1 (2015-01-14)
 ------------------
 * Remove multirobot prefixing, experiment later
