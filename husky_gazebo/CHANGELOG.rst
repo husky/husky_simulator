@@ -2,6 +2,11 @@
 Changelog for package husky_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Fix installing
+* Contributors: Paul Bovbel
+
 0.1.2 (2015-01-30)
 ------------------
 * Update authors
