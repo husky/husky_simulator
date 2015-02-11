@@ -2,6 +2,11 @@
 Changelog for package husky_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Add missing dependency
+* Contributors: Paul Bovbel
+
 0.1.3 (2015-02-06)
 ------------------
 * Fix installing
