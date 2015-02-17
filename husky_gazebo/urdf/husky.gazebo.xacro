@@ -3,7 +3,7 @@
 Software License Agreement (BSD)
 
 \file      husky.gazebo.xacro
-\authors   Paul Bovbel <pbovbel@clearpathrobotics.com
+\authors   Paul Bovbel <pbovbel@clearpathrobotics.com, Devon Ash <dash@clearpathrobotics.com>
 \copyright Copyright (c) 2015, Clearpath Robotics, Inc., All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that
@@ -28,6 +28,8 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
   <xacro:arg name="front_laser" default="true" />
   <xacro:arg name="imu_enabled" default="true" />
   <xacro:arg name="gps_enabled" default="true" />
+  <xacro:arg name="ur5_enabled" default="false" />
+  <xacro:arg name="kinect_enabled" default="false" />
 
   <xacro:include filename="$(find husky_description)/urdf/husky.urdf.xacro" />  
   <xacro:include filename="$(find husky_gazebo)/urdf/sick_lms100.urdf.xacro" />
@@ -106,4 +108,29 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
       </gazebo>
     </xacro:if>
   </xacro:macro>
+
+  <xacro:if value="$(arg ur5_enabled)">
+      <xacro:include filename="$(find husky_description)/urdf/ur5_arm.urdf.xacro"/>
+      <xacro:include filename="$(find husky_gazebo)/urdf/ur5_arm.gazebo.xacro"/>
+  </xacro:if>
+
+  <xacro:if value="$(arg kinect_enabled)">
+      <!-- Spawn the sensor arch and attach it to the model -->
+      <xacro:include filename="$(find husky_description)/urdf/510_mm_sensor_arch.urdf.xacro"/>
+      <xacro:sensor_arch_510mm prefix="" parent="top_plate_link">
+          <origin xyz="-0.35 0 0.51" rpy="0 0 -3.14"/>
+      </xacro:sensor_arch_510mm>
+
+      <xacro:include filename="$(find husky_gazebo)/urdf/kinect_camera.urdf.xacro"/>
+
+      <!-- Attach frame to sensor arch mount point -->
+      <joint name="kinect_frame_joint" type="fixed">
+          <origin xyz="0 0 0" rpy="${3.14/8} 0 -${3.14/2}"/>
+          <parent link="sensor_arch_510mm_link"/>
+          <child link="kinect_frame"/>
+      </joint>
+
+  </xacro:if>
+
 </robot>
+

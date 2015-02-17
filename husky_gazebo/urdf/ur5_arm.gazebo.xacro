@@ -2,8 +2,8 @@
 <!--
 Software License Agreement (BSD)
 
-\file      description.gazebo.xacro
-\authors   Paul Bovbel <pbovbel@clearpathrobotics.com, Devon Ash <dash@clearpathrobotics.com>
+\file      ur5_arm.gazebo.xacro
+\authors   Devon Ash <dash@clearpathrobotics.com
 \copyright Copyright (c) 2015, Clearpath Robotics, Inc., All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that
@@ -23,9 +23,34 @@ OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTE
 ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
-<robot name="husky_description" xmlns:xacro="http://ros.org/wiki/xacro">
+<robot name="husky_ur5_arm_gazebo" xmlns:xacro="http://ros.org/wiki/xacro">
 
-  <xacro:include filename="$(find husky_gazebo)/urdf/husky.gazebo.xacro" />
-  <xacro:husky_gazebo_robot />
+  <gazebo reference="ur5_top_plate_link">
+     <material>Gazebo/DarkGrey</material>
+  </gazebo>
+
+ <!-- Gazebo references for self collide -->
+  <gazebo reference="ur5_arm_shoulder_link">
+      <selfCollide>true</selfCollide>
+  </gazebo>
+ <gazebo reference="ur5_arm_upper_arm_link">
+      <selfCollide>true</selfCollide>
+  </gazebo>
+ <gazebo reference="ur5_arm_forearm_link">
+      <selfCollide>true</selfCollide>
+  </gazebo>
+ <gazebo reference="ur5_arm_wrist_1_link">
+      <selfCollide>true</selfCollide>
+  </gazebo>
+ <gazebo reference="ur5_arm_wrist_3_link">
+      <selfCollide>true</selfCollide>
+  </gazebo>
+ <gazebo reference="ur5_arm_wrist_2_link">
+      <selfCollide>true</selfCollide>
+  </gazebo>
+ <gazebo reference="ur5_arm_ee_link">
+      <selfCollide>true</selfCollide> 
+  </gazebo> 
 
 </robot>
+
