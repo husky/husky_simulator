@@ -18,7 +18,7 @@
         args="pub /calibrated std_msgs/Bool true" />
   
   <!-- joint_state_controller -->
-  <rosparam file="$(find husky_gazebo)/controller/joint_state_controller.yaml" command="load"/>
+  <rosparam file="$(find husky_control)/config/control.yaml" command="load"/>
   <node name="joint_state_controller_spawner" pkg="controller_manager" type="spawner" args="joint_state_controller" />
   
 </launch>
