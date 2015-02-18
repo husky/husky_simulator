@@ -8,6 +8,6 @@ catkin_package()
 roslaunch_add_file_check(launch)
 
 install(
-  DIRECTORY launch worlds urdf controller
+  DIRECTORY launch worlds urdf
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
