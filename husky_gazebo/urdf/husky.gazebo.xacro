@@ -118,7 +118,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
       <!-- Spawn the sensor arch and attach it to the model -->
       <xacro:include filename="$(find husky_description)/urdf/510_mm_sensor_arch.urdf.xacro"/>
       <xacro:sensor_arch_510mm prefix="" parent="top_plate_link">
-          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <origin xyz="-0.35 0 0.51" rpy="0 0 3.14"/>
       </xacro:sensor_arch_510mm>
 
       <!-- Create kinect reference frame -->
