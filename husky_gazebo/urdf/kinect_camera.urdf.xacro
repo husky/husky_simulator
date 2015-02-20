@@ -36,7 +36,20 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   <xacro:include filename="$(find husky_gazebo)/urdf/kinect_camera.gazebo.xacro"/>
 
   <!-- Create kinect reference frame -->
-  <link name="kinect_frame"/>
+  <!-- Add mesh for kinect -->
+  <link name="kinect_frame">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <visual>
+          <geometry> 
+               <mesh filename="package://husky_gazebo/meshes/kinect.dae" />
+          </geometry>
+      </visual>
+      <collision>
+          <geometry>
+               <mesh filename="package://husky_gazebo/meshes/kinect.dae" />
+          </geometry>
+      </collision>
+  </link>
 
   <!-- Spawn the kinect -->
   <xacro:kinect_camera_gazebo_v0 name="kinect"/>
