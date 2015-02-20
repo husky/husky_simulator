@@ -121,8 +121,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
           <origin xyz="-0.35 0 0.51" rpy="0 0 3.14"/>
       </xacro:sensor_arch_510mm>
 
-      <!-- Create kinect reference frame -->
-      <link name="kinect_frame"/>
+      <xacro:include filename="$(find husky_gazebo)/urdf/kinect_camera.urdf.xacro"/>
 
       <!-- Attach frame to sensor arch mount point -->
       <joint name="kinect_frame_joint" type="fixed">
@@ -131,8 +130,6 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
           <child link="kinect_frame"/>
       </joint>
 
-      <!-- Spawn the kinect and attach it to the sensor arch -->
-      <xacro:kinect_camera_gazebo_v0 name="kinect"/>
   </xacro:if>
 
 </robot>
