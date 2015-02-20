@@ -118,14 +118,14 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
       <!-- Spawn the sensor arch and attach it to the model -->
       <xacro:include filename="$(find husky_description)/urdf/510_mm_sensor_arch.urdf.xacro"/>
       <xacro:sensor_arch_510mm prefix="" parent="top_plate_link">
-          <origin xyz="-0.35 0 0.51" rpy="0 0 3.14"/>
+          <origin xyz="-0.35 0 0.51" rpy="0 0 -3.14"/>
       </xacro:sensor_arch_510mm>
 
       <xacro:include filename="$(find husky_gazebo)/urdf/kinect_camera.urdf.xacro"/>
 
       <!-- Attach frame to sensor arch mount point -->
       <joint name="kinect_frame_joint" type="fixed">
-          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <origin xyz="0 0 0" rpy="${3.14/8} 0 -${3.14/2}"/>
           <parent link="sensor_arch_510mm_link"/>
           <child link="kinect_frame"/>
       </joint>
