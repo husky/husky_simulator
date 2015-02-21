@@ -24,21 +24,17 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCL
 ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <launch>
-  <arg name="gps_enabled" default="true"/>
-  <arg name="imu_enabled" default="true"/>
-  <arg name="front_laser" default="true"/>
+
+  <arg name="laser_enabled" default="true"/>
   <arg name="ur5_enabled" default="false"/>
   <arg name="kinect_enabled" default="false"/>
-  
-  <!-- Send the Husky A200 Robot URDF/XACRO to param server -->
-  <param name="robot_description"
-         command="$(find xacro)/xacro.py '$(find husky_gazebo)/urdf/description.gazebo.xacro'
-                                         imu_enabled:=$(arg imu_enabled)
-                                         gps_enabled:=$(arg gps_enabled)
-                                         front_laser:=$(arg front_laser)
-                                         ur5_enabled:=$(arg ur5_enabled)
-                                         kinect_enabled:=$(arg kinect_enabled)" />
-  
+
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find husky_gazebo)/urdf/description.gazebo.xacro' 
+               laser_enabled:=$(arg laser_enabled)
+               ur5_enabled:=$(arg ur5_enabled)
+               kinect_enabled:=$(arg kinect_enabled)
+               " />
+
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
 
   <!-- Spawn robot in gazebo -->
