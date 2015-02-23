@@ -10,7 +10,7 @@ Redistribution and use in source and binary forms, with or without modification,
 the following conditions are met:
  * Redistributions of source code must retain the above copyright notice, this list of conditions and the
    following disclaimer.
- * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the 
+ * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
    following disclaimer in the documentation and/or other materials provided with the distribution.
  * Neither the name of Clearpath Robotics nor the names of its contributors may be used to endorse or promote
    products derived from this software without specific prior written permission.
@@ -28,17 +28,19 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
   <arg name="laser_enabled" default="true"/>
   <arg name="ur5_enabled" default="false"/>
   <arg name="kinect_enabled" default="false"/>
+  <arg name="gripper_enabled" default="false"/>
 
-  <param name="robot_description" command="$(find xacro)/xacro.py '$(find husky_gazebo)/urdf/description.gazebo.xacro' 
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find husky_gazebo)/urdf/description.gazebo.xacro'
                laser_enabled:=$(arg laser_enabled)
                ur5_enabled:=$(arg ur5_enabled)
                kinect_enabled:=$(arg kinect_enabled)
+               gripper_enabled:=$(arg gripper_enabled)
                " />
 
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
 
   <!-- Spawn robot in gazebo -->
-  <node name="spawn_husky_model" pkg="gazebo_ros" type="spawn_model" 
+  <node name="spawn_husky_model" pkg="gazebo_ros" type="spawn_model"
     args="$(optenv ROBOT_INITIAL_POSE) -unpause -urdf -param robot_description -model mobile_base"/>
 
 </launch>

@@ -10,7 +10,7 @@ Redistribution and use in source and binary forms, with or without modification,
 the following conditions are met:
  * Redistributions of source code must retain the above copyright notice, this list of conditions and the
    following disclaimer.
- * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the 
+ * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
    following disclaimer in the documentation and/or other materials provided with the distribution.
  * Neither the name of Clearpath Robotics nor the names of its contributors may be used to endorse or promote
    products derived from this software without specific prior written permission.
@@ -28,14 +28,12 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
   <xacro:include filename="$(find husky_gazebo)/urdf/accessories/sick_lms100.gazebo.xacro"/>
   <xacro:include filename="$(find husky_gazebo)/urdf/accessories/kinect_camera.gazebo.xacro"/>
 
-  <xacro:include filename="$(find ur_description)/urdf/ur5.gazebo.xacro" />
-
   <xacro:macro name="husky_robot_gazebo">
 
     <gazebo>
       <plugin name="imu_controller" filename="libhector_gazebo_ros_imu.so">
         <robotNamespace>/</robotNamespace>
-        <updateRate>50.0</updateRate> 
+        <updateRate>50.0</updateRate>
         <bodyName>base_link</bodyName>
         <topicName>imu/data</topicName>
         <accelDrift>0.005 0.005 0.005</accelDrift>
@@ -74,9 +72,9 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
     </xacro:if>
 
     <xacro:if value="$(arg ur5_enabled)">
-      
-      <xacro:ur5_arm_gazebo />
-      <!--TODO, determine if should be pulled to ur5_arm_gazebo -->
+
+
+      <!--Remove when https://github.com/ros-industrial/universal_robot/pull/168 is resolved -->
       <gazebo reference="ur5_arm_shoulder_link">
         <selfCollide>true</selfCollide>
       </gazebo>
@@ -96,9 +94,9 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
         <selfCollide>true</selfCollide>
       </gazebo>
       <gazebo reference="ur5_arm_ee_link">
-        <selfCollide>true</selfCollide> 
+        <selfCollide>true</selfCollide>
       </gazebo>
-      
+
     </xacro:if>
 
     <xacro:if value="$(arg kinect_enabled)">
