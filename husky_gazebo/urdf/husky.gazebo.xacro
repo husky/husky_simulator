@@ -76,8 +76,8 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 
     <xacro:if value="$(arg ur5_enabled)">
       
-      <xacro:ur5_arm_gazebo prefix="ur5_arm_"/>
-      <xacro:ur5_arm_transmission prefix="ur5_arm_"/>
+     <!--  <xacro:ur5_arm_gazebo prefix="ur5_arm_"/>
+      <xacro:ur5_arm_transmission prefix="ur5_arm_"/> -->
       <gazebo reference="ur5_arm_shoulder_link">
         <selfCollide>true</selfCollide>
       </gazebo>
