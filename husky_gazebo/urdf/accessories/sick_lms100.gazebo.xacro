@@ -32,7 +32,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
   xmlns:xacro="http://ros.org/wiki/xacro" name="sick_lms100">
 
-  <xacro:macro name="sick_lms100_gazebo" params="prefix"> 
+  <xacro:macro name="sick_lms100_gazebo" params="prefix">
 
     <gazebo reference="${prefix}_laser">
       <material>Gazebo/Grey</material>
