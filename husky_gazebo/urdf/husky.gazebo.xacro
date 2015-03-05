@@ -27,9 +27,6 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 
   <xacro:include filename="$(find husky_gazebo)/urdf/accessories/sick_lms100.gazebo.xacro"/>
   <xacro:include filename="$(find husky_gazebo)/urdf/accessories/kinect_camera.gazebo.xacro"/>
-  <xacro:include filename="$(find ur_description)/urdf/ur5.transmission.xacro"/>
-
-  <xacro:include filename="$(find ur_description)/urdf/ur5.gazebo.xacro" />
 
   <xacro:macro name="husky_robot_gazebo">
 
@@ -76,8 +73,6 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 
     <xacro:if value="$(arg ur5_enabled)">
 
-     <!--  <xacro:ur5_arm_gazebo prefix="ur5_arm_"/>
-      <xacro:ur5_arm_transmission prefix="ur5_arm_"/> -->
       <gazebo reference="ur5_arm_shoulder_link">
         <selfCollide>true</selfCollide>
       </gazebo>
