@@ -32,38 +32,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
   xmlns:xacro="http://ros.org/wiki/xacro" name="sick_lms100">
 
-  <xacro:property name="laser_x" value="0.105" />
-  <xacro:property name="laser_y" value="0.102" />
-  <xacro:property name="laser_z" value="0.152" />
-  <xacro:property name="laser_mass" value="1.1" />
-
-  <xacro:macro name="box_inertial" params="x y z mass">
-    <inertial>
-      <mass value="${mass}" />
-      <origin xyz="0 0 0" />
-      <inertia ixx="${0.0833333 * mass * (y*y + z*z)}" ixy="0.0" ixz="0.0" 
-        iyy="${0.0833333 * mass * (x*x + z*z)}" iyz="0.0" 
-        izz="${0.0833333 * mass * (x*x + y*y)}" />
-    </inertial>
-  </xacro:macro>
-
-  <xacro:macro name="sick_lms100" params="prefix"> 
-    <link name="${prefix}_laser">
-      <xacro:box_inertial x="${laser_x}" y="${laser_y}" z="${laser_z}" mass="${laser_mass}" />
-      <visual>
-        <origin xyz="0 0 0" rpy="0 0 0" />
-        <geometry>
-          <mesh filename="package://husky_description/meshes/sick_lms100.stl" />
-        </geometry>
-        <material name="Grey" />
-      </visual>
-      <collision>
-        <origin xyz="0 0 -0.05" rpy="0 0 0" />
-        <geometry>
-          <box size="${laser_x} ${laser_y} ${laser_z}" />
-        </geometry>
-      </collision>
-    </link>
+  <xacro:macro name="sick_lms100_gazebo" params="prefix">
 
     <gazebo reference="${prefix}_laser">
       <material>Gazebo/Grey</material>
@@ -98,5 +67,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         </plugin>
       </sensor>
     </gazebo>
+
   </xacro:macro>
 </robot>

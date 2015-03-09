@@ -3,14 +3,14 @@
 Software License Agreement (BSD)
 
 \file      husky.gazebo.xacro
-\authors   Paul Bovbel <pbovbel@clearpathrobotics.com
+\authors   Paul Bovbel <pbovbel@clearpathrobotics.com, Devon Ash <dash@clearpathrobotics.com>
 \copyright Copyright (c) 2015, Clearpath Robotics, Inc., All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that
 the following conditions are met:
  * Redistributions of source code must retain the above copyright notice, this list of conditions and the
    following disclaimer.
- * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the 
+ * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
    following disclaimer in the documentation and/or other materials provided with the distribution.
  * Neither the name of Clearpath Robotics nor the names of its contributors may be used to endorse or promote
    products derived from this software without specific prior written permission.
@@ -23,87 +23,89 @@ OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTE
 ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
-<robot name="husky_gazebo" xmlns:xacro="http://ros.org/wiki/xacro">
+<robot name="husky_robot_gazebo" xmlns:xacro="http://ros.org/wiki/xacro">
 
-  <xacro:arg name="front_laser" default="true" />
-  <xacro:arg name="imu_enabled" default="true" />
-  <xacro:arg name="gps_enabled" default="true" />
+  <xacro:include filename="$(find husky_gazebo)/urdf/accessories/sick_lms100.gazebo.xacro"/>
+  <xacro:include filename="$(find husky_gazebo)/urdf/accessories/kinect_camera.gazebo.xacro"/>
 
-  <xacro:include filename="$(find husky_description)/urdf/husky.urdf.xacro" />  
-  <xacro:include filename="$(find husky_gazebo)/urdf/sick_lms100.urdf.xacro" />
+  <xacro:macro name="husky_robot_gazebo">
 
-  <xacro:macro name="husky_gazebo_robot">
-
-    <xacro:husky_robot />
-
-    <!-- Gazebo plugin for ROS Control -->
     <gazebo>
-      <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <plugin name="imu_controller" filename="libhector_gazebo_ros_imu.so">
         <robotNamespace>/</robotNamespace>
+        <updateRate>50.0</updateRate>
+        <bodyName>base_link</bodyName>
+        <topicName>imu/data</topicName>
+        <accelDrift>0.005 0.005 0.005</accelDrift>
+        <accelGaussianNoise>0.005 0.005 0.005</accelGaussianNoise>
+        <rateDrift>0.005 0.005 0.005 </rateDrift>
+        <rateGaussianNoise>0.005 0.005 0.005 </rateGaussianNoise>
+        <headingDrift>0.005</headingDrift>
+        <headingGaussianNoise>0.005</headingGaussianNoise>
       </plugin>
     </gazebo>
 
-    <xacro:if value="$(arg front_laser)">
+    <gazebo>
+      <plugin name="gps_controller" filename="libhector_gazebo_ros_gps.so">
+        <updateRate>40</updateRate>
+        <robotNamespace>/</robotNamespace>
+        <bodyName>base_link</bodyName>
+        <frameId>base_link</frameId>
+        <topicName>navsat/fix</topicName>
+        <velocityTopicName>navsat/vel</velocityTopicName>
+        <referenceLatitude>49.9</referenceLatitude>
+        <referenceLongitude>8.9</referenceLongitude>
+        <referenceHeading>0</referenceHeading>
+        <referenceAltitude>0</referenceAltitude>
+        <drift>0.0001 0.0001 0.0001</drift>
+      </plugin>
+    </gazebo>
 
-      <link name="sick_bracket_link">
-        <visual>
-          <geometry>
-            <mesh filename="package://husky_description/meshes/lidar_mount.stl" />
-          </geometry>
-          <material name="DarkGrey" />
-        </visual>
-      </link>
-      <joint name="sick_bracket" type="fixed">
-        <origin xyz="-0.12 0 0" rpy="0 0 0" />
-        <parent link="front_bumper_link" />
-        <child link="sick_bracket_link" />
-      </joint>
+    <xacro:if value="$(arg laser_enabled)">
+
       <gazebo reference="sick_bracket_link">
         <material>Gazebo/DarkGrey</material>
       </gazebo>
 
-      <xacro:sick_lms100 prefix="front" />
+      <xacro:sick_lms100_gazebo prefix="base"/>
 
-      <joint name="front_laser_joint" type="fixed">
-        <origin xyz="0.07 0 0.17" rpy="0 0 0" />
-        <parent link="sick_bracket_link" />
-        <child link="front_laser" />
-      </joint>
     </xacro:if>
 
-    <xacro:if value="$(arg imu_enabled)">
-      <gazebo>
-        <plugin name="imu_controller" filename="libhector_gazebo_ros_imu.so">
-          <robotNamespace>/</robotNamespace>
-          <updateRate>50.0</updateRate> 
-          <bodyName>base_link</bodyName>
-          <topicName>imu/data</topicName>
-          <accelDrift>0.005 0.005 0.005</accelDrift>
-          <accelGaussianNoise>0.005 0.005 0.005</accelGaussianNoise>
-          <rateDrift>0.005 0.005 0.005 </rateDrift>
-          <rateGaussianNoise>0.005 0.005 0.005 </rateGaussianNoise>
-          <headingDrift>0.005</headingDrift>
-          <headingGaussianNoise>0.005</headingGaussianNoise>
-        </plugin>
+    <xacro:if value="$(arg ur5_enabled)">
+
+
+      <!--Remove when https://github.com/ros-industrial/universal_robot/pull/168 is resolved -->
+      <gazebo reference="ur5_arm_shoulder_link">
+        <selfCollide>true</selfCollide>
       </gazebo>
+      <gazebo reference="ur5_arm_upper_arm_link">
+        <selfCollide>true</selfCollide>
+      </gazebo>
+      <gazebo reference="ur5_arm_forearm_link">
+        <selfCollide>true</selfCollide>
+      </gazebo>
+      <gazebo reference="ur5_arm_wrist_1_link">
+        <selfCollide>true</selfCollide>
+      </gazebo>
+      <gazebo reference="ur5_arm_wrist_3_link">
+       <selfCollide>true</selfCollide>
+      </gazebo>
+      <gazebo reference="ur5_arm_wrist_2_link">
+        <selfCollide>true</selfCollide>
+      </gazebo>
+      <gazebo reference="ur5_arm_ee_link">
+        <selfCollide>true</selfCollide>
+      </gazebo>
+
     </xacro:if>
 
-    <xacro:if value="$(arg gps_enabled)">
-      <gazebo>
-        <plugin name="gps_controller" filename="libhector_gazebo_ros_gps.so">
-          <updateRate>40</updateRate>
-          <robotNamespace>/</robotNamespace>
-          <bodyName>base_link</bodyName>
-          <frameId>base_link</frameId>
-          <topicName>navsat/fix</topicName>
-          <velocityTopicName>navsat/vel</velocityTopicName>
-          <referenceLatitude>49.9</referenceLatitude>
-          <referenceLongitude>8.9</referenceLongitude>
-          <referenceHeading>0</referenceHeading>
-          <referenceAltitude>0</referenceAltitude>
-          <drift>0.0001 0.0001 0.0001</drift>
-        </plugin>
-      </gazebo>
+    <xacro:if value="$(arg kinect_enabled)">
+
+      <xacro:kinect_camera_gazebo prefix="camera"/>
+
     </xacro:if>
+
   </xacro:macro>
+
 </robot>
+

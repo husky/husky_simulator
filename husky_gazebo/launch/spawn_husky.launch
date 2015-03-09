@@ -10,7 +10,7 @@ Redistribution and use in source and binary forms, with or without modification,
 the following conditions are met:
  * Redistributions of source code must retain the above copyright notice, this list of conditions and the
    following disclaimer.
- * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the 
+ * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
    following disclaimer in the documentation and/or other materials provided with the distribution.
  * Neither the name of Clearpath Robotics nor the names of its contributors may be used to endorse or promote
    products derived from this software without specific prior written permission.
@@ -24,21 +24,41 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCL
 ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <launch>
-  <arg name="gps_enabled" default="true"/>
-  <arg name="imu_enabled" default="true"/>
-  <arg name="front_laser" default="true"/>
-  
-  <!-- Send the Husky A200 Robot URDF/XACRO to param server -->
-  <param name="robot_description"
-         command="$(find xacro)/xacro.py '$(find husky_gazebo)/urdf/description.gazebo.xacro'
-                                         imu_enabled:=$(arg imu_enabled)
-                                         gps_enabled:=$(arg gps_enabled)
-                                         front_laser:=$(arg front_laser)" />
-  
+
+  <arg name="laser_enabled" default="true"/>
+  <arg name="ur5_enabled" default="false"/>
+  <arg name="kinect_enabled" default="false"/>
+  <arg name="gripper_enabled" default="false"/>
+
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find husky_gazebo)/urdf/description.gazebo.xacro'
+    laser_enabled:=$(arg laser_enabled)
+    ur5_enabled:=$(arg ur5_enabled)
+    kinect_enabled:=$(arg kinect_enabled)
+    gripper_enabled:=$(arg gripper_enabled)
+    " />
+
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
 
+  <!-- Load Husky control information -->
+  <include file="$(find husky_control)/launch/control.launch"/>
+
+  <!-- Include ros_control configuration for ur5, only used in simulation -->
+  <group if="$(arg ur5_enabled)">
+
+    <!-- Load UR5 controllers -->
+    <rosparam command="load" file="$(find husky_control)/config/control_ur5.yaml" />
+    <node name="arm_controller_spawner" pkg="controller_manager" type="spawner" args="arm_controller --shutdown-timeout 3"/>
+
+    <!-- Fake Calibration -->
+    <node pkg="rostopic" type="rostopic" name="fake_joint_calibration" args="pub calibrated std_msgs/Bool true" />
+
+    <!-- Stow the arm -->
+    <node pkg="husky_control" type="stow_ur5" name="stow_ur5"/>
+
+  </group>
+
   <!-- Spawn robot in gazebo -->
-  <node name="spawn_husky_model" pkg="gazebo_ros" type="spawn_model" 
+  <node name="spawn_husky_model" pkg="gazebo_ros" type="spawn_model"
     args="$(optenv ROBOT_INITIAL_POSE) -unpause -urdf -param robot_description -model mobile_base"/>
 
 </launch>
