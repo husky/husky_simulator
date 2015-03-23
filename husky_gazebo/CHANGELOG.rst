@@ -2,6 +2,12 @@
 Changelog for package husky_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Fix package urls
+* Add missing dependency
+* Contributors: Paul Bovbel
+
 0.2.0 (2015-03-23)
 ------------------
 * Refactor URDF
