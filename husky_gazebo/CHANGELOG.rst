@@ -2,6 +2,12 @@
 Changelog for package husky_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Refactor URDF
+* Add UR5 and Kinect simulation
+* Contributors: Paul Bovbel, TheDash
+
 0.1.4 (2015-02-11)
 ------------------
 * Add missing dependency
