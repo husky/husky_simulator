@@ -1,4 +1,5 @@
-== husky_simualtor ==
+husky_simualtor
+==============
 
 Simulator ROS packages for the Clearpath Husky.
 
