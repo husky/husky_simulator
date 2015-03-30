@@ -25,6 +25,10 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 -->
 <launch>
 
+  <remap from="camera/depth/image" to="depth/image"/>
+  <remap from="husky_velocity_controller/odom" to="odom"/>
+  <remap from="camera/rgb/camera_info" to="rgb/camera_info"/>
+  <remap from="camera/rgb/image_raw" to="rgb/image"/>
   <arg name="laser_enabled" default="true"/>
   <arg name="ur5_enabled" default="false"/>
   <arg name="kinect_enabled" default="false"/>
@@ -32,7 +36,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 
   <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
   <include file="$(find husky_gazebo)/launch/husky_empty_world.launch">
-    <arg name="world_name" value="$(find husky_gazebo)/worlds/husky_playpen.world"/>
+    <arg name="world_name" value="$(find husky_gazebo)/worlds/husky_playpen_manipulation.world"/>
     <arg name="laser_enabled" value="$(arg laser_enabled)"/>
     <arg name="ur5_enabled" value="$(arg ur5_enabled)"/>
     <arg name="kinect_enabled" value="$(arg kinect_enabled)"/>

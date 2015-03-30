@@ -55,10 +55,11 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
     <!-- Stow the arm -->
     <node pkg="husky_control" type="stow_ur5" name="stow_ur5"/>
 
-    <!-- Start the generic gripper controller provided from ROS control -->
+    <!-- Start the pr2 gripper controller and action server -->
     <group if="$(arg gripper_enabled)">
-        <rosparam command="load" file="$(find husky_control)/config/control_gripper.yaml" />
+        <rosparam command="load" file="$(find husky_control)/config/control_gripper.yaml" />    
         <node name="r_gripper_controller_spawner" pkg="pr2_controller_manager" type="spawner" args="r_gripper_controller"/>
+        <remap from="gripper_action" to="/r_gripper_controller/gripper_action" />
     </group>
   </group>
 
