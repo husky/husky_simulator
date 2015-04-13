@@ -2,8 +2,8 @@
 Changelog for package husky_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.3 (2015-04-13)
+------------------
 * Fix conflict with underlay
   When using -z check, underlayed instances of husky_gazebo would override overlays.
 * Contributors: Paul Bovbel
