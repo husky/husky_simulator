@@ -2,8 +2,8 @@
 Changelog for package husky_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.4 (2015-07-08)
+------------------
 * Add pointcloud to laserscan config for simulated kinect
 * Contributors: Paul Bovbel
 
