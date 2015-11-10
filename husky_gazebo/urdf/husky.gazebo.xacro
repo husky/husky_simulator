@@ -25,7 +25,6 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 -->
 <robot name="husky_robot_gazebo" xmlns:xacro="http://ros.org/wiki/xacro">
 
-  <xacro:include filename="$(find husky_gazebo)/urdf/accessories/sick_lms100.gazebo.xacro"/>
   <xacro:include filename="$(find husky_gazebo)/urdf/accessories/kinect_camera.gazebo.xacro"/>
 
   <xacro:macro name="husky_robot_gazebo">
@@ -60,14 +59,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
         <drift>0.0001 0.0001 0.0001</drift>
       </plugin>
     </gazebo>
-
-    <xacro:if value="$(arg laser_enabled)">
-      <gazebo reference="sick_bracket_link">
-        <material>Gazebo/DarkGrey</material>
-      </gazebo>
-      <xacro:sick_lms100_gazebo prefix="base"/>
-    </xacro:if>
-
+  
     <xacro:if value="$(arg ur5_enabled)">
       <!--Remove when https://github.com/ros-industrial/universal_robot/pull/168 is resolved -->
       <gazebo reference="ur5_arm_shoulder_link">
