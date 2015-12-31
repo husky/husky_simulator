@@ -2,6 +2,11 @@
 Changelog for package husky_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Removed duplicate SICK laser plugin in husky_gazebo, since husky_description already contains a SICK laser plugin from the lms package.
+* Contributors: Peiyi Chen
+
 0.2.4 (2015-07-08)
 ------------------
 * Add pointcloud to laserscan config for simulated kinect
