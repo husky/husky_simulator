@@ -2,8 +2,8 @@
 Changelog for package husky_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.5 (2015-12-31)
+------------------
 * Removed duplicate SICK laser plugin in husky_gazebo, since husky_description already contains a SICK laser plugin from the lms package.
 * Contributors: Peiyi Chen
 
