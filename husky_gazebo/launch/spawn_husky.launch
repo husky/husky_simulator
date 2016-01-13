@@ -28,11 +28,13 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
   <arg name="laser_enabled" default="true"/>
   <arg name="ur5_enabled" default="false"/>
   <arg name="kinect_enabled" default="false"/>
+  <arg name="gripper_enabled" default="false"/>
 
   <param name="robot_description" command="$(find xacro)/xacro.py '$(env HUSKY_GAZEBO_DESCRIPTION)'
     laser_enabled:=$(arg laser_enabled)
     ur5_enabled:=$(arg ur5_enabled)
     kinect_enabled:=$(arg kinect_enabled)
+    gripper_enabled:=$(arg gripper_enabled)
     " />
 
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
@@ -53,6 +55,12 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
     <!-- Stow the arm -->
     <node pkg="husky_control" type="stow_ur5" name="stow_ur5"/>
 
+    <!-- Start the pr2 gripper controller and action server -->
+    <group if="$(arg gripper_enabled)">
+        <rosparam command="load" file="$(find husky_control)/config/control_gripper.yaml" />    
+        <node name="r_gripper_controller_spawner" pkg="pr2_controller_manager" type="spawner" args="r_gripper_controller"/>
+        <remap from="gripper_action" to="/r_gripper_controller/gripper_action" />
+    </group>
   </group>
 
   <group if="$(arg kinect_enabled)">
