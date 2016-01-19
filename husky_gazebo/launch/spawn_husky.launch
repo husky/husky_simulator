@@ -59,6 +59,11 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
     <group if="$(arg gripper_enabled)">
         <rosparam command="load" file="$(find husky_control)/config/control_gripper.yaml" />
         <node name="r_gripper_controller_spawner" pkg="controller_manager" type="spawner" args="r_gripper_controller"/>
+        <!-- https://github.com/ros-controls/ros_controllers/pull/181 -->
+        <node name="r_gripper_state_publisher" pkg="rostopic" type="rostopic"
+              args="pub -r 1 /joint_states sensor_msgs/JointState
+                    '{name: [r_gripper_l_finger_tip_joint, r_gripper_motor_slider_joint, r_gripper_motor_screw_joint, r_gripper_r_finger_joint, r_gripper_r_finger_tip_joint,  r_gripper_joint],
+                      position: [0,0,0,0,0,0]}'" />
     </group>
 
   </group>
