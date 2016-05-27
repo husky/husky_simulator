@@ -28,6 +28,8 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
   <arg name="laser_enabled" default="true"/>
   <arg name="ur5_enabled" default="false"/>
   <arg name="kinect_enabled" default="false"/>
+  <arg name="dual_ur5_enabled" default="false"/>
+  <arg name="robotiq_grippers_enabled" default="false"/>
 
   <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
   <include file="$(find husky_gazebo)/launch/husky_empty_world.launch">
@@ -35,6 +37,8 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
     <arg name="laser_enabled" value="$(arg laser_enabled)"/>
     <arg name="ur5_enabled" value="$(arg ur5_enabled)"/>
     <arg name="kinect_enabled" value="$(arg kinect_enabled)"/>
+    <arg name="dual_ur5_enabled" value="$(arg dual_ur5_enabled)"/>
+    <arg name="robotiq_grippers_enabled" value="$(arg robotiq_grippers_enabled)"/>
   </include>
 
 </launch>
