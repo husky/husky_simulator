@@ -85,6 +85,102 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
       </gazebo>
     </xacro:if>
 
+    <xacro:if value="$(arg robotiq_grippers_enabled)">
+        <gazebo reference="l_palm">
+            <material>Gazebo/Black</material>
+        </gazebo>
+        <gazebo reference="r_palm">
+            <material>Gazebo/Black</material>
+        </gazebo>
+
+ <gazebo reference="l_finger_1_link_0">
+            <material>Gazebo/Black</material>
+        </gazebo>
+<gazebo reference="r_finger_1_link_0">
+            <material>Gazebo/Black</material>
+        </gazebo>
+
+<gazebo reference="l_finger_1_link_1">
+            <material>Gazebo/Black</material>
+        </gazebo>
+<gazebo reference="r_finger_1_link_1">
+            <material>Gazebo/Black</material>
+        </gazebo>
+
+<gazebo reference="l_finger_1_link_2">
+            <material>Gazebo/Black</material>
+        </gazebo>
+<gazebo reference="r_finger_1_link_2">
+            <material>Gazebo/Black</material>
+        </gazebo>
+
+<gazebo reference="l_finger_1_link_3">
+            <material>Gazebo/Grey</material>
+        </gazebo>
+<gazebo reference="r_finger_1_link_3">
+            <material>Gazebo/Grey</material>
+        </gazebo>
+
+<gazebo reference="l_finger_2_link_0">
+            <material>Gazebo/Black</material>
+        </gazebo>
+<gazebo reference="r_finger_2_link_0">
+            <material>Gazebo/Black</material>
+        </gazebo>
+
+<gazebo reference="l_finger_2_link_1">
+            <material>Gazebo/Black</material>
+        </gazebo>
+<gazebo reference="r_finger_2_link_1">
+            <material>Gazebo/Black</material>
+        </gazebo>
+
+<gazebo reference="l_finger_2_link_2">
+            <material>Gazebo/Black</material>
+        </gazebo>
+<gazebo reference="r_finger_2_link_2">
+            <material>Gazebo/Black</material>
+        </gazebo>
+
+<gazebo reference="l_finger_2_link_3">
+            <material>Gazebo/Grey</material>
+        </gazebo>
+<gazebo reference="r_finger_2_link_3">
+            <material>Gazebo/Grey</material>
+        </gazebo>
+
+
+
+<gazebo reference="l_finger_middle_link_0">
+            <material>Gazebo/Black</material>
+        </gazebo>
+<gazebo reference="r_finger_middle_link_0">
+            <material>Gazebo/Black</material>
+        </gazebo>
+
+<gazebo reference="l_finger_middle_link_1">
+            <material>Gazebo/Black</material>
+        </gazebo>
+<gazebo reference="r_finger_middle_link_1">
+            <material>Gazebo/Black</material>
+        </gazebo>
+
+<gazebo reference="l_finger_middle_link_2">
+            <material>Gazebo/Black</material>
+        </gazebo>
+<gazebo reference="r_finger_middle_link_2">
+            <material>Gazebo/Black</material>
+        </gazebo>
+
+<gazebo reference="l_finger_middle_link_3">
+            <material>Gazebo/Grey</material>
+        </gazebo>
+<gazebo reference="r_finger_middle_link_3">
+            <material>Gazebo/Grey</material>
+        </gazebo>
+
+    </xacro:if>
+
     <xacro:if value="$(arg kinect_enabled)">
       <xacro:kinect_camera_gazebo prefix="camera"/>
     </xacro:if>
