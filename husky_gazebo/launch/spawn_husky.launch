@@ -48,16 +48,17 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
   <!-- Include ros_control configuration for left and right ur5, only used in simulation -->
   <group if="$(arg dual_ur5_enabled)">
 
-    <rosparam command="load" file="$(find husky_control)/config/control_left_ur5.yaml" />
-    <node name="left_arm_controller_spawner" pkg="controller_manager" type="spawner" args="l_arm_controller --shutdown-timeout 3"/>
+	    <rosparam command="load" file="$(find husky_control)/config/control_left_ur5.yaml" />
+	    <node name="left_arm_controller_spawner" pkg="controller_manager" type="spawner" args="l_arm_controller --shutdown-timeout 3"/>
 
-    <rosparam command="load" file="$(find husky_control)/config/control_right_ur5.yaml" />
-    <node name="right_arm_controller_spawner" pkg="controller_manager" type="spawner" args="r_arm_controller --shutdown-timeout 3"/>
+	    <rosparam command="load" file="$(find husky_control)/config/control_right_ur5.yaml" />
+	    <node name="right_arm_controller_spawner" pkg="controller_manager" type="spawner" args="r_arm_controller --shutdown-timeout 3"/>
 
-    <node pkg="rostopic" type="rostopic" name="fake_joint_calibration" args="pub calibrated std_msgs/Bool true" />
+	    <node pkg="rostopic" type="rostopic" name="fake_joint_calibration" args="pub calibrated std_msgs/Bool true" />
 
-    <!-- Stow the arm -->
-    <node pkg="husky_control" type="stow_ur5" name="stow_ur5"/>
+	    <!-- Stow the arms -->
+	    <node pkg="husky_control" type="stow_ur5" name="stow_ur5_left"/>
+	    <node pkg="husky_control" type="stow_ur5" name="stow_ur5_right"/>
 
   </group>
 
@@ -115,7 +116,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 
     <!-- Spawn robot in gazebo -->
     <node name="spawn_husky_model" pkg="gazebo_ros" type="spawn_model"
-    args="$(optenv ROBOT_INITIAL_POSE) -unpause -urdf -param robot_description -model mobile_base -J l_ur5_arm_shoulder_pan_joint 3.14"/>
+    args="$(optenv ROBOT_INITIAL_POSE) -unpause -urdf -param robot_description -model mobile_base"/>
 
 
 </launch>
