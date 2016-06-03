@@ -86,6 +86,15 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
     </xacro:if>
 
     <xacro:if value="$(arg robotiq_grippers_enabled)">
+
+        <gazebo>
+	    <plugin name="robotiq_hand_plugin" filename="libRobotiqHandPlugin.so">
+	      <side>left</side>
+	      <kp_position>5.0</kp_position>
+	      <kd_position>0.5</kd_position>
+	     </plugin> 
+        </gazebo> 
+
         <gazebo reference="l_palm">
             <material>Gazebo/Black</material>
         </gazebo>
@@ -148,8 +157,6 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 <gazebo reference="r_finger_2_link_3">
             <material>Gazebo/Grey</material>
         </gazebo>
-
-
 
 <gazebo reference="l_finger_middle_link_0">
             <material>Gazebo/Black</material>
