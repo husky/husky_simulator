@@ -64,7 +64,10 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 
   <!-- Include robotiq gripper configs for left and right gripper, only used in sim -->
   <group if="$(arg robotiq_grippers_enabled)">
-
+        <node pkg="robot_state_publisher" type="state_publisher" name="robotiq_hands_l_hand_robot_state_publisher">
+          <param name="publish_frequency" type="double" value="50.0" />
+          <remap from="joint_states" to="/robotiq_hands/left_hand/joint_states" />
+        </node>
   </group>
 
 
