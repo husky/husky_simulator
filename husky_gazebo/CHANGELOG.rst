@@ -2,8 +2,8 @@
 Changelog for package husky_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.6 (2016-10-26)
+------------------
 * spawn_husky.launch: enable to use custom controller files, i.e effort controller
 * spawn_husky.launch: support argument to set urdf file and initial pose
 * Contributors: Kei Okada
