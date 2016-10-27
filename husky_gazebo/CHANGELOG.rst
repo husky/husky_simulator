@@ -2,6 +2,12 @@
 Changelog for package husky_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* spawn_husky.launch: enable to use custom controller files, i.e effort controller
+* spawn_husky.launch: support argument to set urdf file and initial pose
+* Contributors: Kei Okada
+
 0.2.5 (2015-12-31)
 ------------------
 * Removed duplicate SICK laser plugin in husky_gazebo, since husky_description already contains a SICK laser plugin from the lms package.
