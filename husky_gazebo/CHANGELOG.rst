@@ -2,8 +2,8 @@
 Changelog for package husky_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.7 (2018-04-11)
+------------------
 * Added empty.urdf to fix vanilla husky gazebo crash
 * Respect env var setup similar to husky_description
 * URDF Parameters for Husky Gazebo dnt respect envvr
