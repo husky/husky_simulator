@@ -2,6 +2,14 @@
 Changelog for package husky_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Added empty.urdf to fix vanilla husky gazebo crash
+* Respect env var setup similar to husky_description
+* URDF Parameters for Husky Gazebo dnt respect envvr
+  Changed so the launch files follow the same convention as husky_description
+* Contributors: Dave Niewinski, Devon Ash
+
 0.2.6 (2016-10-26)
 ------------------
 * spawn_husky.launch: enable to use custom controller files, i.e effort controller
